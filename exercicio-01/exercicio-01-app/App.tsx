@@ -13,7 +13,7 @@ import {
 
 export default function App() {
     const handlePress = () => {
-        alert("Botão de salvar texto clicado!");
+        Alert.alert("Botão de salvar texto clicado!", `Você digitou: ${nome}`);
     };
 
     const [nome, setNome] = useState("");
@@ -54,5 +54,5 @@ const styles = StyleSheet.create({
 
     button: {
         borderRadius: 10,
-    }
+    },
 });
