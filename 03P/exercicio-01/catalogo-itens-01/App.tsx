@@ -1,12 +1,20 @@
 import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { StyleSheet, Text, View, FlatList, Image } from "react-native";
+import {
+    StyleSheet,
+    Text,
+    View,
+    FlatList,
+    Image,
+    Switch,
+} from "react-native";
 interface Item {
     id: string;
     nome: string;
     description: string;
     imageUrl?: string;
+    isFavorite?: boolean;
 }
 
 const DATA: Item[] = [
@@ -16,6 +24,7 @@ const DATA: Item[] = [
         description: "Caderno do Vasco",
         imageUrl:
             "https://down-br.img.susercontent.com/file/br-11134207-81z1k-mh1xhw0b87pg9a",
+        isFavorite: false,
     },
     {
         id: "2",
@@ -23,6 +32,7 @@ const DATA: Item[] = [
         description: "Lápis do Vasco",
         imageUrl:
             "https://cdn1.toplojas.com.br/loja/WAssets/677/Produtos/1295641/Fotos/G_2883465890ebc3b4282e6425cc88de.jpg",
+        isFavorite: false,
     },
     {
         id: "3",
@@ -30,10 +40,30 @@ const DATA: Item[] = [
         description: "Notebook Lenovo",
         imageUrl:
             "https://p1-ofp.static.pub//medias/24157957128_CG_202112301038011695752214193.png",
+        isFavorite: false,
+    },
+    {
+        id: "4",
+        nome: "Notebook",
+        description: "Notebook Samsung",
+        imageUrl: "",
+        isFavorite: false,
     },
 ];
 
 export default function App() {
+    const [produtos, setProdutos] = useState<Item[]>(DATA);
+
+    const favoritarProduto = (idDoProduto: string) => {
+        setProdutos((listaAtual) =>
+            listaAtual.map((item) =>
+                item.id === idDoProduto
+                    ? { ...item, isFavorite: !item.isFavorite }
+                    : item,
+            ),
+        );
+    };
+
     const renderCard = ({ item }: { item: Item }) => (
         <View style={styles.card}>
             {item.imageUrl ? (
@@ -49,6 +79,14 @@ export default function App() {
             <View style={styles.cardContent}>
                 <Text style={styles.cardTitle}>{item.nome}</Text>
                 <Text style={styles.cardDescription}>{item.description}</Text>
+
+                <View style={styles.switchContainer}>
+                    <Text style={styles.switchLabel}>Favorito</Text>
+                    <Switch
+                        value={item.isFavorite}
+                        onValueChange={() => favoritarProduto(item.id)}
+                    />
+                </View>
             </View>
         </View>
     );
@@ -61,7 +99,7 @@ export default function App() {
                 </View>
 
                 <FlatList
-                    data={DATA}
+                    data={produtos}
                     renderItem={renderCard}
                     keyExtractor={(item) => item.id}
                     style={styles.listContainer}
@@ -74,9 +112,9 @@ export default function App() {
 
 const styles = StyleSheet.create({
     header: {
-        padding: 20,
+        padding: 15,
         alignItems: "center",
-        backgroundColor: "#fff",
+        // backgroundColor: "#fff",
         borderBottomWidth: 1,
         borderColor: "#e4e4e7",
     },
@@ -147,5 +185,16 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         color: "#27272a",
         marginBottom: 4,
+    },
+
+    switchContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        marginTop: 10,
+    },
+    switchLabel: {
+        marginRight: 8,
+        fontSize: 14,
+        color: "#52525b",
     },
 });
