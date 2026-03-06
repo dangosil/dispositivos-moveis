@@ -152,13 +152,13 @@ const styles = StyleSheet.create({
 
     cardImage: {
         width: 100,
-        height: 100,
+        height: "100%",
         backgroundColor: "#e4e4e7",
     },
 
     imagePlaceholder: {
         width: 100,
-        height: 100,
+        height: "100%",
         backgroundColor: "#e4e4e7",
         alignItems: "center",
         justifyContent: "center",
