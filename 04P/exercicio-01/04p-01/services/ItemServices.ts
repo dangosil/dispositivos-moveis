@@ -3,7 +3,7 @@ import { Item } from "../models/Item";
 class ItemService {
     private items: Item[] = [];
 
-    getAllItens(): Item[] {
+    getAllItems(): Item[] {
         return this.items;
     }
 
