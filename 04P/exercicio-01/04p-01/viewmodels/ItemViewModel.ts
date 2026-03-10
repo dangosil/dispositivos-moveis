@@ -34,6 +34,7 @@ export class ItemViewModel {
 
     loadItems(): void {
         this._items = ItemServices.getAllItems();
+        this.setItemsCallback?.(this._items);
     }
 
     addItem(): boolean {
@@ -71,7 +72,7 @@ export const useItemViewModel = () => {
     useEffect(() => {
         viewModel.setItemsListener(setItems);
         viewModel.setDialogVisibleListener(setDialogVisible);
-        viewModel.setInputTextListener(setInputText)
+        viewModel.setInputTextListener(setInputText);
         viewModel.loadItems();
     }, [viewModel]);
 
@@ -80,5 +81,5 @@ export const useItemViewModel = () => {
         items,
         dialogVisible,
         inputText,
-    }
+    };
 };
