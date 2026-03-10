@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Item } from "../models/Item";
+import { Alert } from "react-native";
 import ItemServices from "../services/ItemServices";
 
 export class ItemViewModel {
@@ -39,11 +40,17 @@ export class ItemViewModel {
 
     addItem(): boolean {
         if (this._inputText.trim()) {
-            ItemServices.addItem(this._inputText.trim());
-            this.loadItems();
-            this.setInputText("");
-            return true;
+            try {
+                ItemServices.addItem(this._inputText.trim());
+                this.loadItems();
+                this.setInputText("");
+                return true;
+            } catch (error: any) {
+                Alert.alert("Não foi possível salvar o item.", error.message);
+                return false;
+            }
         }
+        Alert.alert("O campo não pode ficar vazio.")
         return false;
     }
 

@@ -17,6 +17,8 @@ import { Item } from "../models/Item";
 export const ItemView: React.FC = () => {
     const { viewModel, items, dialogVisible, inputText } = useItemViewModel();
 
+    
+
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.title}>Lista de Produtos</Text>
