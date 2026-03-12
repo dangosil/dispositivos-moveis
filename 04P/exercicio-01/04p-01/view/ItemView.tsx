@@ -9,6 +9,8 @@ import {
     Modal,
     Button,
     StyleSheet,
+    KeyboardAvoidingView,
+    Platform,
 } from "react-native";
 import { useItemViewModel } from "../viewmodels/ItemViewModel";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
@@ -57,30 +59,37 @@ export const ItemView: React.FC = () => {
             <Modal
                 visible={dialogVisible}
                 animationType="slide"
-                transparent={false}
+                transparent={true}
             >
-                <View style={styles.modalContainer}>
-                    <Text style={styles.title}>Novo Item</Text>
+                <KeyboardAvoidingView
+                    style={styles.modal}
+                    behavior={Platform.OS === "ios" ? "padding" : "height"}
+                >
+                    <View style={styles.modalContainer}>
+                        <Text style={styles.title}>Novo Item</Text>
 
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Nome do item"
-                        value={inputText}
-                        onChangeText={(text) => viewModel.setInputText(text)}
-                    />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Nome do item"
+                            value={inputText}
+                            onChangeText={(text) =>
+                                viewModel.setInputText(text)
+                            }
+                        />
 
-                    <View style={styles.buttonRow}>
-                        <Button
-                            title="Cancelar"
-                            color="red"
-                            onPress={() => viewModel.closeDialog()}
-                        />
-                        <Button
-                            title="Salvar"
-                            onPress={() => viewModel.addItem()}
-                        />
+                        <View style={styles.buttonRow}>
+                            <Button
+                                title="Cancelar"
+                                color="red"
+                                onPress={() => viewModel.closeDialog()}
+                            />
+                            <Button
+                                title="Salvar"
+                                onPress={() => viewModel.addItem()}
+                            />
+                        </View>
                     </View>
-                </View>
+                </KeyboardAvoidingView>
             </Modal>
         </SafeAreaView>
     );
@@ -121,7 +130,8 @@ const styles = StyleSheet.create({
     },
 
     modalContainer: {
-        flex: 1,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
         justifyContent: "center",
         padding: 20,
         backgroundColor: "#fff",
@@ -134,4 +144,10 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     buttonRow: { flexDirection: "row", justifyContent: "space-around" },
+
+    modal: {
+        flex: 1,
+        justifyContent: "flex-end",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+    },
 });
