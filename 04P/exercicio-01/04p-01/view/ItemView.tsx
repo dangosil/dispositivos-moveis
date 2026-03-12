@@ -17,7 +17,16 @@ import { Item } from "../models/Item";
 export const ItemView: React.FC = () => {
     const { viewModel, items, dialogVisible, inputText } = useItemViewModel();
 
-    
+    const deleteConfirmed = (id: string, nome: string) => {
+        Alert.alert("Atenção", `Tem certeza que deseja excluir "${nome}"?`, [
+            { text: "Cancelar", style: "cancel" },
+            {
+                text: "Excluir",
+                style: "destructive",
+                onPress: () => viewModel.deleteitem(id),
+            },
+        ]);
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -33,7 +42,14 @@ export const ItemView: React.FC = () => {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <View style={styles.card}>
-                        <Text>{item.name}</Text>
+                        <Text style={styles.textCard}>{item.name}</Text>
+
+                        <TouchableOpacity
+                            style={styles.deleteButton}
+                            onPress={() => deleteConfirmed(item.id, item.name)}
+                        >
+                            <Text style={styles.deleteButtonText}>Excluir</Text>
+                        </TouchableOpacity>
                     </View>
                 )}
             />
@@ -84,7 +100,26 @@ const styles = StyleSheet.create({
         marginVertical: 8,
         borderRadius: 8,
         elevation: 2,
+        flexDirection: "row",
     },
+
+    textCard: {
+        flex: 1,
+    },
+
+    deleteButton: {
+        paddingVertical: 6,
+        paddingHorizontal: 12,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: "#f87171",
+    },
+    deleteButtonText: {
+        color: "#dc2626",
+        fontSize: 12,
+        fontWeight: "bold",
+    },
+
     modalContainer: {
         flex: 1,
         justifyContent: "center",

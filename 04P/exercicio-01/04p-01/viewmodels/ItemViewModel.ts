@@ -54,6 +54,12 @@ export class ItemViewModel {
         return false;
     }
 
+    deleteitem(id: string): void {
+        ItemServices.deleteitem(id);
+
+        this.loadItems();
+    }
+
     openDialog(): void {
         this._dialogVisible = true;
         this.setDialogVisibleCallback?.(this._dialogVisible);

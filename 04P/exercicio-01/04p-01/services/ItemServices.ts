@@ -30,6 +30,10 @@ class ItemService {
         };
         this.items.push(newItem);
     }
+
+    deleteitem(id: string): void {
+        this.items = this.items.filter((item) => item.id !== id)
+    }
 }
 
 export default new ItemService();
