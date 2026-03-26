@@ -5,6 +5,6 @@ export type RootStackParams = {
 };
 
 export type RootTabParams = {
-    Home: undefined;
+    List: undefined;
     About: undefined;
 };
