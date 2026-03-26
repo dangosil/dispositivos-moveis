@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { ItemView } from "../04p-01/view/ItemView";
 
+
 export default function App() {
     return (
         <SafeAreaProvider>
