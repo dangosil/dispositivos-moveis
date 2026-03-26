@@ -1,17 +1,18 @@
 import React from "react";
+import { RootTabParams } from "./types";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { ItemView } from "../view/ItemView";
 import { View, Text } from "react-native";
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootTabParams>();
 
 export function TabNavigator() {
     return (
         <Tab.Navigator screenOptions={{ headerShown: false }}>
             <Tab.Screen
-                name="HomeTab"
+                name="Home"
                 component={ItemView}
-                options={{ tabBarLabel: "Lista" }} // Aqui depois você pode colocar ícones!
+                options={{ tabBarLabel: "Home" }}
             />
 
         </Tab.Navigator>

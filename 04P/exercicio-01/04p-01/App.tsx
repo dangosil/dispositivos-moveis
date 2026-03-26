@@ -2,14 +2,20 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { ItemView } from "../04p-01/view/ItemView";
-
+import { NavigationContainer } from "@react-navigation/native";
+import StackNavigator from "./navigator/StackNavigator";
 
 export default function App() {
     return (
         <SafeAreaProvider>
-            <SafeAreaView style={styles.safeArea}>
+            <SafeAreaView
+                edges={["top", "left", "right"]}
+                style={styles.safeArea}
+            >
                 <View style={styles.container}>
-                    <ItemView />
+                    <NavigationContainer>
+                        <StackNavigator />
+                    </NavigationContainer>
                     <StatusBar style="auto" />
                 </View>
             </SafeAreaView>
