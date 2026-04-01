@@ -23,12 +23,24 @@ export const EditItemView = () => {
                 onChangeText={setName}
             />
 
-            <Button
-                title="Salvar Alterações"
-                onPress={() => {
-                    navigation.goBack();
-                }}
-            />
+            <View style={styles.buttonRow}>
+                <View style={styles.buttonWrapper}>
+                    <Button
+                        title="Cancelar"
+                        color="#ef4444"
+                        onPress={() => navigation.goBack()}
+                    />
+                </View>
+
+                <View style={styles.buttonWrapper}>
+                    <Button
+                        title="Salvar"
+                        onPress={() => {
+                            navigation.goBack();
+                        }}
+                    />
+                </View>
+            </View>
         </SafeAreaView>
     );
 };
@@ -43,5 +55,14 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 8,
         marginBottom: 20,
+    },
+    buttonRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: "100%",
+    },
+    buttonWrapper: {
+        flex: 1,
+        marginHorizontal: 5,
     },
 });
