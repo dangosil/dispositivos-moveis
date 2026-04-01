@@ -15,9 +15,13 @@ import {
 import { useItemViewModel } from "../viewmodels/ItemViewModel";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { Item } from "../models/Item";
+import { useNavigation, NavigationProp } from "@react-navigation/native";
+import { RootStackParams } from "../navigator/types";
 
 export const ItemView: React.FC = () => {
     const { viewModel, items, dialogVisible, inputText } = useItemViewModel();
+
+    const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
     const deleteConfirmed = (id: string, nome: string) => {
         Alert.alert("Atenção", `Tem certeza que deseja excluir "${nome}"?`, [
@@ -44,8 +48,17 @@ export const ItemView: React.FC = () => {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <View style={styles.card}>
-                        <Text style={styles.textCard}>{item.name}</Text>
-
+                        <TouchableOpacity
+                            style={styles.textCard}
+                            onPress={() =>
+                                navigation.navigate("EditItem", {
+                                    id: item.id,
+                                    currentName: item.name,
+                                })
+                            }
+                        >
+                            <Text style={styles.textCard}>{item.name}</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.deleteButton}
                             onPress={() => deleteConfirmed(item.id, item.name)}

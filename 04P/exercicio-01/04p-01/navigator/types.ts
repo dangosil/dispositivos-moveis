@@ -1,6 +1,6 @@
 export type RootStackParams = {
     Home: undefined;
-    
+    EditItem: { id: string; currentName: string };
 
 };
 
