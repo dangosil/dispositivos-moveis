@@ -21,7 +21,7 @@ class ItemService {
         );
 
         if (duplicateItem) {
-            throw new Error("Já existe um item com esse nome.")
+            throw new Error("Já existe um item com esse nome.");
         }
 
         const newItem: Item = {
@@ -32,7 +32,17 @@ class ItemService {
     }
 
     deleteitem(id: string): void {
-        this.items = this.items.filter((item) => item.id !== id)
+        this.items = this.items.filter((item) => item.id !== id);
+    }
+
+    updateItem(id: string, newName: string): void {
+        const itemIndex = this.items.findIndex((item) => item.id === id);
+
+        if (itemIndex !== -1) {
+            this.items[itemIndex].name = newName;
+        } else {
+            throw new Error("Item não encontrado");
+        }
     }
 }
 

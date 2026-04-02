@@ -3,9 +3,12 @@ import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import { RouteProp, useRoute, useNavigation } from "@react-navigation/native";
 import { RootStackParams } from "../navigator/types";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useItemViewModel } from "../viewmodels/ItemViewModel";
 
 export const EditItemView = () => {
     const navigation = useNavigation();
+
+    const { viewModel } = useItemViewModel();
 
     const route = useRoute<RouteProp<RootStackParams, "EditItem">>();
     const { id, currentName } = route.params;
@@ -36,7 +39,10 @@ export const EditItemView = () => {
                     <Button
                         title="Salvar"
                         onPress={() => {
-                            navigation.goBack();
+                            const sucesso = viewModel.updateItem(id, name);
+                            if (sucesso) {
+                                navigation.goBack();
+                            }
                         }}
                     />
                 </View>

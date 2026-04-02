@@ -50,7 +50,7 @@ export class ItemViewModel {
                 return false;
             }
         }
-        Alert.alert("O campo não pode ficar vazio.")
+        Alert.alert("O campo não pode ficar vazio.");
         return false;
     }
 
@@ -58,6 +58,22 @@ export class ItemViewModel {
         ItemServices.deleteitem(id);
 
         this.loadItems();
+    }
+
+    updateItem(id: string, newName: string): boolean {
+        if (newName.trim()) {
+            try {
+                ItemServices.updateItem(id, newName.trim());
+
+                this.loadItems();
+                return true;
+            } catch (error: any) {
+                Alert.alert("Erro", "Não foi possível atualizar o item.");
+                return false;
+            }
+        }
+        Alert.alert("Atenção", "O nome do item não pode ficar vazio.");
+        return false;
     }
 
     openDialog(): void {
