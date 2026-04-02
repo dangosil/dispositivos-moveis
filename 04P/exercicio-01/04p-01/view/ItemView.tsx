@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     View,
     Text,
@@ -22,6 +22,13 @@ export const ItemView: React.FC = () => {
     const { viewModel, items, dialogVisible, inputText } = useItemViewModel();
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener("focus", () => {
+            viewModel.loadItems();
+        });
+        return unsubscribe;
+    }, [navigation, viewModel]);
 
     const deleteConfirmed = (id: string, nome: string) => {
         Alert.alert("Atenção", `Tem certeza que deseja excluir "${nome}"?`, [

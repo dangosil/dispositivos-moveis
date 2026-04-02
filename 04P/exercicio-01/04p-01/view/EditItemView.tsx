@@ -39,8 +39,8 @@ export const EditItemView = () => {
                     <Button
                         title="Salvar"
                         onPress={() => {
-                            const sucesso = viewModel.updateItem(id, name);
-                            if (sucesso) {
+                            const saved = viewModel.updateItem(id, name);
+                            if (saved) {
                                 navigation.goBack();
                             }
                         }}

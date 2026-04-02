@@ -34,7 +34,7 @@ export class ItemViewModel {
     }
 
     loadItems(): void {
-        this._items = ItemServices.getAllItems();
+        this._items = [...ItemServices.getAllItems()];
         this.setItemsCallback?.(this._items);
     }
 
